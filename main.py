@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from player import Player
@@ -30,9 +31,17 @@ def main():
 
         for item in updatable:
             item.update(dt)
+
+        for item in asteroids:
+            if item.checkForCollision(player):
+                print("Game over!")
+                sys.exit()
+
         screen.fill('black')
+
         for item in drawable:
             item.draw(screen)
+
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
